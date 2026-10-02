@@ -1,0 +1,1 @@
+let fn;export const router={start(f){fn=f;const go=()=>f(location.hash.slice(2)||"dashboard");go();addEventListener("hashchange",go)},go(v){location.hash="/"+v}};

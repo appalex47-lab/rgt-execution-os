@@ -1,3 +1,0 @@
-import {buildAlerts} from '../engines/alertEngine.js';
-export function alerts(d){const a=buildAlerts(d);return `<div class=head><div><div class=eyebrow>Control Operativo</div><h1>Alertas</h1><div class=sub>Señales que requieren atención; no sustituyen el criterio del responsable.</div></div></div><section class=panel><div class=section-head><h2>${a.length} señales activas</h2><span class=status>Determinísticas</span></div>${a.length?a.map(x=>`<article class="alert-card ${x.level.toLowerCase()}"><b>${x.level}</b><h3>${esc(x.title)}</h3><p>${esc(x.detail)}</p></article>`).join(''):'<div class="empty">No hay alertas activas.</div>'}</section>`}
-function esc(v=''){return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]||c))}

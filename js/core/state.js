@@ -1,0 +1,1 @@
+let data={sprints:[],initiatives:[],checklist:[],evidence:[],deepWork:[],reviews:[],activity:[],learning:[],prefs:[]};export const state={set(x){data={...data,...x}},get(){return structuredClone(data)}};

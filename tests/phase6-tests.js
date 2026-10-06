@@ -1,0 +1,6 @@
+import {getReviewForSprint,getCarryOverCandidates,validateReviewInput,buildCarryOverIds} from '../js/engines/reviewEngine.js';
+const tests=[
+ ['solo estados elegibles para carry-over',()=>getCarryOverCandidates([{id:'R',status:'IN_PROGRESS'},{id:'B',status:'BLOCKED'},{id:'D',status:'DONE'},{id:'C',status:'CANCELLED'},{id:'Y',status:'READY'}]).map(x=>x.id).join(',')==='R,B,Y'],
+ ['review inexistente devuelve null',()=>getReviewForSprint([],'S')===null],['review encontrada por sprint',()=>getReviewForSprint([{sprint_id:'S',id:'1'}],'S').id==='1'],['review incompleta bloquea',()=>!validateReviewInput({must_win_completed:'x',blocked_reason:'',next_week:'x',learning:'x'}).allowed],['review completa permite guardar',()=>validateReviewInput({must_win_completed:'x',blocked_reason:'x',next_week:'x',learning:'x'}).allowed],['carry-over conserva identidad',()=>JSON.stringify(buildCarryOverIds([{id:'R',status:'IN_PROGRESS'},{id:'B',status:'BLOCKED'}]))===JSON.stringify(['R','B'])]
+];
+const results=tests.map(([n,f])=>[n,!!f()]);const failed=results.filter(x=>!x[1]);document.body.innerHTML=`<h1>Fase 6 — pruebas</h1><p>${results.length-failed.length}/${results.length} PASS</p>${results.map(x=>`<p>${x[1]?'✅':'❌'} ${x[0]}</p>`).join('')}`;if(failed.length)throw new Error(failed.map(x=>x[0]).join(', '));
